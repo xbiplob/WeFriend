@@ -1,0 +1,46 @@
+{
+  "name": "weffriend-social",
+  "version": "1.0.0",
+  "description": "A modern social media platform built with Firebase and vanilla JavaScript",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "serve": "npx serve .",
+    "deploy": "gh-pages -d .",
+    "lint": "eslint js/*.js",
+    "format": "prettier --write ."
+  },
+  "keywords": [
+    "social-media",
+    "firebase",
+    "javascript",
+    "realtime",
+    "chat",
+    "responsive",
+    "pwa"
+  ],
+  "author": "WeFriend Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/weffriend-social.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/weffriend-social/issues"
+  },
+  "homepage": "https://yourusername.github.io/weffriend-social",
+  "devDependencies": {
+    "gh-pages": "^4.0.0",
+    "eslint": "^8.0.0",
+    "prettier": "^2.8.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}
+

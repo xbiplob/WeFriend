@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeFriend - Social Media Platform</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+        <!-- Loading Screen -->
+        <div id="loading-screen" class="loading-screen">
+            <div class="loader"></div>
+            <p>Loading WeFriend...</p>
+        </div>
+
+        <!-- Login Screen -->
+        <div id="login-screen" class="screen hidden">
+            <div class="login-container">
+                <div class="login-card">
+                    <h1>WeFriend</h1>
+                    <p>Connect with friends and share your moments</p>
+                    <button id="google-signin-btn" class="google-signin-btn">
+                        <i class="fab fa-google"></i>
+                        Sign in with Google
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main App Screen -->
+        <div id="main-screen" class="screen hidden">
+            <!-- Navigation Header -->
+            <header class="navbar">
+                <div class="nav-container">
+                    <div class="nav-left">
+                        <h2>WeFriend</h2>
+                    </div>
+                    <div class="nav-center">
+                        <nav class="nav-menu">
+                            <button class="nav-btn active" data-tab="feed">
+                                <i class="fas fa-home"></i>
+                                <span>Feed</span>
+                            </button>
+                            <button class="nav-btn" data-tab="friends">
+                                <i class="fas fa-users"></i>
+                                <span>Friends</span>
+                            </button>
+                            <button class="nav-btn" data-tab="chat">
+                                <i class="fas fa-comments"></i>
+                                <span>Chat</span>
+                            </button>
+                            <button class="nav-btn" data-tab="profile">
+                                <i class="fas fa-user"></i>
+                                <span>Profile</span>
+                            </button>
+                        </nav>
+                    </div>
+                    <div class="nav-right">
+                        <button id="theme-toggle" class="theme-toggle">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                        <div class="notifications-dropdown">
+                            <button id="notifications-btn" class="notifications-btn">
+                                <i class="fas fa-bell"></i>
+                                <span id="notification-count" class="notification-count hidden">0</span>
+                            </button>
+                            <div id="notifications-panel" class="notifications-panel hidden">
+                                <div class="notifications-header">
+                                    <h3>Notifications</h3>
+                                    <button id="clear-notifications">Clear All</button>
+                                </div>
+                                <div id="notifications-list" class="notifications-list">
+                                    <!-- Notifications will be populated here -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="user-dropdown">
+                            <button id="user-menu-btn" class="user-menu-btn">
+                                <img id="user-avatar" src="" alt="User Avatar" class="user-avatar">
+                            </button>
+                            <div id="user-menu" class="user-menu hidden">
+                                <div class="user-info">
+                                    <img id="menu-user-avatar" src="" alt="User Avatar">
+                                    <div>
+                                        <div id="menu-user-name" class="user-name"></div>
+                                        <div id="menu-user-email" class="user-email"></div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <button id="signout-btn" class="menu-item">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    Sign Out
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Content Area -->
+            <main class="main-content">
+                <!-- Feed Tab -->
+                <div id="feed-tab" class="tab-content active">
+                    <div class="feed-container">
+                        <div class="create-post-card">
+                            <div class="create-post-header">
+                                <img id="post-user-avatar" src="" alt="Your Avatar" class="post-avatar">
+                                <textarea id="post-content" placeholder="What's on your mind?" rows="3"></textarea>
+                            </div>
+                            <div class="create-post-actions">
+                                <input type="file" id="post-image" accept="image/*" style="display: none;">
+                                <button id="add-image-btn" class="action-btn">
+                                    <i class="fas fa-image"></i>
+                                    Photo
+                                </button>
+                                <button id="create-post-btn" class="create-post-btn">Post</button>
+                            </div>
+                            <div id="image-preview" class="image-preview hidden">
+                                <img id="preview-image" src="" alt="Preview">
+                                <button id="remove-image" class="remove-image">×</button>
+                            </div>
+                        </div>
+                        <div id="posts-container" class="posts-container">
+                            <!-- Posts will be populated here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Friends Tab -->
+                <div id="friends-tab" class="tab-content">
+                    <div class="friends-container">
+                        <div class="friends-header">
+                            <h3>Friends</h3>
+                            <button id="add-friend-btn" class="add-friend-btn">
+                                <i class="fas fa-user-plus"></i>
+                                Add Friend
+                            </button>
+                        </div>
+                        
+                        <div class="friend-requests-section">
+                            <h4>Friend Requests</h4>
+                            <div id="friend-requests-list" class="friend-requests-list">
+                                <!-- Friend requests will be populated here -->
+                            </div>
+                        </div>
+
+                        <div class="friends-list-section">
+                            <h4>Your Friends</h4>
+                            <div id="friends-list" class="friends-list">
+                                <!-- Friends will be populated here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat Tab -->
+                <div id="chat-tab" class="tab-content">
+                    <div class="chat-container">
+                        <div class="chat-sidebar">
+                            <h3>Chats</h3>
+                            <div id="chat-list" class="chat-list">
+                                <!-- Chat list will be populated here -->
+                            </div>
+                        </div>
+                        <div class="chat-main">
+                            <div id="chat-placeholder" class="chat-placeholder">
+                                <i class="fas fa-comments"></i>
+                                <p>Select a friend to start chatting</p>
+                            </div>
+                            <div id="chat-window" class="chat-window hidden">
+                                <div class="chat-header">
+                                    <img id="chat-friend-avatar" src="" alt="Friend Avatar" class="chat-avatar">
+                                    <div class="chat-friend-info">
+                                        <div id="chat-friend-name" class="chat-friend-name"></div>
+                                        <div id="chat-friend-status" class="chat-friend-status"></div>
+                                    </div>
+                                </div>
+                                <div id="chat-messages" class="chat-messages">
+                                    <!-- Messages will be populated here -->
+                                </div>
+                                <div class="chat-input-container">
+                                    <input type="text" id="chat-input" placeholder="Type a message..." class="chat-input">
+                                    <button id="send-message-btn" class="send-message-btn">
+                                        <i class="fas fa-paper-plane"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Profile Tab -->
+                <div id="profile-tab" class="tab-content">
+                    <div class="profile-container">
+                        <div class="profile-header">
+                            <img id="profile-avatar" src="" alt="Profile Avatar" class="profile-avatar-large">
+                            <div class="profile-info">
+                                <h2 id="profile-display-name"></h2>
+                                <p id="profile-email"></p>
+                                <div class="username-section">
+                                    <label for="username-input">Username:</label>
+                                    <div class="username-input-group">
+                                        <input type="text" id="username-input" placeholder="Enter your username" class="username-input">
+                                        <button id="save-username-btn" class="save-username-btn">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div id="add-friend-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add Friend</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="friend-username-input" placeholder="Enter username" class="modal-input">
+                <button id="send-friend-request-btn" class="modal-btn">Send Request</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK v9 -->
+    <script type="module" src="js/firebase-config.js"></script>
+    <script type="module" src="js/auth.js"></script>
+    <script type="module" src="js/database.js"></script>
+    <script type="module" src="js/storage.js"></script>
+    <script type="module" src="js/friends.js"></script>
+    <script type="module" src="js/chat.js"></script>
+    <script type="module" src="js/posts.js"></script>
+    <script type="module" src="js/notifications.js"></script>
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>
+

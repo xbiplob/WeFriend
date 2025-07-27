@@ -1,0 +1,22 @@
+{
+  "name": "WeFriend - Social Media Platform",
+  "short_name": "WeFriend",
+  "description": "Connect with friends and share your moments",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1877f2",
+  "theme_color": "#1877f2",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "16x16 32x32 48x48",
+      "type": "image/x-icon"
+    }
+  ],
+  "categories": ["social", "communication"],
+  "lang": "en",
+  "scope": "/",
+  "prefer_related_applications": false
+}
+

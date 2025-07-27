@@ -1,0 +1,94 @@
+{
+  "rules": {
+    "users": {
+      "$uid": {
+        ".read": "auth != null",
+        ".write": "$uid === auth.uid",
+        ".validate": "newData.hasChildren(['displayName', 'email'])"
+      }
+    },
+    "usernames": {
+      "$username": {
+        ".read": "auth != null",
+        ".write": "auth != null && !data.exists()"
+      }
+    },
+    "presence": {
+      "$uid": {
+        ".read": "auth != null",
+        ".write": "$uid === auth.uid"
+      }
+    },
+    "friends": {
+      "$uid": {
+        ".read": "$uid === auth.uid",
+        ".write": "$uid === auth.uid",
+        "$friendUid": {
+          ".validate": "newData.hasChildren(['addedAt', 'status'])"
+        }
+      }
+    },
+    "friendRequests": {
+      "$uid": {
+        ".read": "$uid === auth.uid",
+        ".write": "$uid === auth.uid",
+        "$fromUid": {
+          ".validate": "newData.hasChildren(['from', 'to', 'timestamp', 'status'])"
+        }
+      }
+    },
+    "messages": {
+      "$chatId": {
+        ".read": "auth != null && (root.child('chats').child($chatId).child('participants').child(auth.uid).exists())",
+        ".write": "auth != null && (root.child('chats').child($chatId).child('participants').child(auth.uid).exists())",
+        "$messageId": {
+          ".validate": "newData.hasChildren(['senderId', 'recipientId', 'text', 'timestamp']) && (newData.child('senderId').val() === auth.uid || newData.child('recipientId').val() === auth.uid)"
+        }
+      }
+    },
+    "chats": {
+      "$chatId": {
+        ".read": "auth != null && data.child('participants').child(auth.uid).exists()",
+        ".write": "auth != null && data.child('participants').child(auth.uid).exists()",
+        ".validate": "newData.hasChildren(['participants'])"
+      }
+    },
+    "userChats": {
+      "$uid": {
+        ".read": "$uid === auth.uid",
+        ".write": "$uid === auth.uid"
+      }
+    },
+    "posts": {
+      ".read": "auth != null",
+      "$postId": {
+        ".write": "auth != null && (newData.child('authorId').val() === auth.uid || data.child('authorId').val() === auth.uid)",
+        ".validate": "newData.hasChildren(['authorId', 'authorName', 'content', 'timestamp']) && newData.child('authorId').val() === auth.uid",
+        "likes": {
+          "$uid": {
+            ".write": "$uid === auth.uid"
+          }
+        },
+        "comments": {
+          "$commentId": {
+            ".write": "auth != null && newData.child('authorId').val() === auth.uid",
+            ".validate": "newData.hasChildren(['authorId', 'authorName', 'text', 'timestamp']) && newData.child('authorId').val() === auth.uid"
+          }
+        }
+      }
+    },
+    "userPosts": {
+      "$uid": {
+        ".read": "auth != null",
+        ".write": "$uid === auth.uid"
+      }
+    },
+    "notifications": {
+      "$uid": {
+        ".read": "$uid === auth.uid",
+        ".write": "$uid === auth.uid"
+      }
+    }
+  }
+}
+
